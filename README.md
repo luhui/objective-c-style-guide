@@ -1,62 +1,37 @@
-# The official raywenderlich.com Objective-C style guide.
+# CVTE Objective-C 代码规范
 
-This style guide outlines the coding conventions for raywenderlich.com.
+这份规范大部分参照了[@raywenderlich](http://raywenderlich.com)的代码规范。
 
-## Introduction
+## 目录
 
-The reason we made this style guide was so that we could keep the code in our books, tutorials, and starter kits nice and consistent - even though we have many different authors working on the books.
-
-This style guide is different from other Objective-C style guides you may see, because the focus is centered on readability for print and the web. Many of the decisions were made with an eye toward conserving space for print, easy legibility, and tutorial writing.
-
-## Credits
-
-The creation of this style guide was a collaborative effort from various raywenderlich.com team members under the direction of Nicholas Waynik.  The team includes: [Soheil Moayedi Azarpour](https://github.com/moayes), [Ricardo Rendon Cepeda](https://github.com/ricardo-rendoncepeda), [Tony Dahbura](https://github.com/tdahbura), [Colin Eberhardt](https://github.com/ColinEberhardt), [Matt Galloway](https://github.com/mattjgalloway), [Greg Heo](https://github.com/gregheo), [Matthijs Hollemans](https://github.com/hollance), [Christopher LaPollo](https://github.com/elephantronic), [Saul Mora](https://github.com/casademora), [Andy Pereira](https://github.com/macandyp), [Mic Pringle](https://github.com/micpringle), [Pietro Rea](https://github.com/pietrorea), [Cesare Rocchi](https://github.com/funkyboy), [Marin Todorov](https://github.com/icanzilb), [Nicholas Waynik](https://github.com/ndubbs), and [Ray Wenderlich](https://github.com/raywenderlich)
-
-We would like to thank the creators of the [New York Times](https://github.com/NYTimes/objective-c-style-guide) and [Robots & Pencils'](https://github.com/RobotsAndPencils/objective-c-style-guide) Objective-C Style Guides.  These two style guides provided a solid starting point for this guide to be created and based upon.
-
-## Background
-
-Here are some of the documents from Apple that informed the style guide. If something isn't mentioned here, it's probably covered in great detail in one of these:
-
-* [The Objective-C Programming Language](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ObjectiveC/Introduction/introObjectiveC.html)
-* [Cocoa Fundamentals Guide](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaFundamentals/Introduction/Introduction.html)
-* [Coding Guidelines for Cocoa](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html)
-* [iOS App Programming Guide](http://developer.apple.com/library/ios/#documentation/iphone/conceptual/iphoneosprogrammingguide/Introduction/Introduction.html)
-
-## Table of Contents
-
-* [Language](#language)
-* [Code Organization](#code-organization)
-* [Spacing](#spacing)
-* [Comments](#comments)
-* [Naming](#naming)
-  * [Underscores](#underscores)
-* [Methods](#methods)
-* [Variables](#variables)
-* [Property Attributes](#property-attributes)
-* [Dot-Notation Syntax](#dot-notation-syntax)
+* [语言](#语言)
+* [代码结构](#代码结构)
+* [缩进](#缩进)
+* [注释](#注释)
+* [命名](#命名)
+* [方法](#方法)
+* [变量](#变量)
+* [属性特性](#属性特性)
+* [点表示法](#点表示法)
 * [Literals](#literals)
-* [Constants](#constants)
-* [Enumerated Types](#enumerated-types)
-* [Case Statements](#case-statements)
-* [Private Properties](#private-properties)
-* [Booleans](#booleans)
-* [Conditionals](#conditionals)
-  * [Ternary Operator](#ternary-operator)
-* [Init Methods](#init-methods)
-* [Class Constructor Methods](#class-constructor-methods)
-* [CGRect Functions](#cgrect-functions)
-* [Golden Path](#golden-path)
-* [Error handling](#error-handling)
-* [Singletons](#singletons)
-* [Line Breaks](#line-breaks)
-* [Smiley Face](#smiley-face)
-* [Xcode Project](#xcode-project)
+* [枚举类型](#枚举类型)
+* [Case语句](#Case语句)
+* [布尔变量](#布尔变量)
+* [条件语句](#条件语句)
+* [三元运算](#三元运算)
+* [构造函数和内存释放](#构造函数和内存释放)
+* [类构造函数](#类构造函数)
+* [CGRect函数](#CGRect函数)
+* [黄金路径](#黄金路径)
+* [错误捕获](#错误捕获)
+* [单例](#单例)
+* [换行](#换行)
+* [Xcode项目](#Xcode项目)
 
 
-## Language
+## 语言
 
-US English should be used.
+使用英式英语
 
 **Preferred:**
 ```objc
@@ -69,9 +44,9 @@ UIColor *myColour = [UIColor whiteColor];
 ```
 
 
-## Code Organization
+## 代码结构
 
-Use `#pragma mark -` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
+使用 `#pragram mark - ` 区分不同功能的代码块
 
 ```objc
 #pragma mark - Lifecycle
@@ -113,10 +88,11 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 - (NSString *)description {}
 ```
 
-## Spacing
+## 缩进
 
-* Indent using 2 spaces (this conserves space in print and makes line wrapping less likely). Never indent with tabs. Be sure to set this preference in Xcode.
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
+* 使用Xcode默认的缩进风格
+
+* 方法大括号和其它大括号（比如if/else/switch/while等等）应在语句的同一行开始，而在新的一行关闭。  
 
 **Preferred:**
 ```objc
@@ -138,9 +114,23 @@ else {
 }
 ```
 
-* There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
-* Prefer using auto-synthesis. But if necessary, `@synthesize` and `@dynamic` should each be declared on new lines in the implementation.
-* Colon-aligning method invocation should often be avoided.  There are cases where a method signature may have >= 3 colons and colon-aligning makes the code more readable. Please do **NOT** however colon align methods containing blocks because Xcode's indenting makes it illegible.
+* 为保证视觉上的整洁和代码组织，在方法之间应提供且仅提供一行空白。方法中的空白应用于区分功能，但空白行最好用于区分两个不同方法。
+* 为避免错误，条件语句体必须使用大括号。
+
+**Preferred:**
+```objc
+if (!error) {
+  return success;
+} 
+```
+
+**Not Preferred:**
+```objc
+if (user.isHappy)
+	return success;
+```
+
+* block的代码块居左。尽量避免和对应函数签名对齐。对齐的可阅读性太差。
 
 **Preferred:**
 
@@ -166,17 +156,15 @@ else {
                  }];
 ```
 
-## Comments
+## 注释
 
-When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
+代码应该是自解释的。只有在必要的时候在对应代码做相应注释，表明为什么使用这段代码。所有的代码注释必须是最新的，否则就必须删掉。应尽量使用行注释，而避免使用块注释。之所以这样是因为代码自身需要是自文档化的，因此只需要零散添加一些行注释。当然，对于用于生成文档的注释，该原则并不适用。
 
-Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. *Exception: This does not apply to those comments used to generate documentation.*
+## 命名
 
-## Naming
+尽可能的遵守苹果的命名规范, 特别是有关[内存管理](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html)的命名 ([NARC](http://stackoverflow.com/a/2865194/340508)).
 
-Apple naming conventions should be adhered to wherever possible, especially those related to [memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508)).
-
-Long, descriptive method and variable names are good.
+尽可能使用全称，可描述的语言来命名属性和方法
 
 **Preferred:**
 
@@ -190,14 +178,13 @@ UIButton *settingsButton;
 UIButton *setBut;
 ```
 
-A three letter prefix should always be used for class names and constants, however may be omitted for Core Data entity names. For any official raywenderlich.com books, starter kits, or tutorials, the prefix 'RWT' should be used.
-
-Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
+对于类和常量名称，应尽量使用三大写字母前缀（比如LYI），但对Core Data的实体名称可不适用该法则。
+常量名称应首先在头部加’k’表示常量,然后加上相关类的名称作为前缀，其他的单词采用驼峰命名法.
 
 **Preferred:**
 
 ```objc
-static NSTimeInterval const RWTutorialViewControllerNavigationFadeAnimationDuration = 0.3;
+static NSTimeInterval const kNavigationFadeAnimationDuration = 0.3;
 ```
 
 **Not Preferred:**
@@ -206,7 +193,7 @@ static NSTimeInterval const RWTutorialViewControllerNavigationFadeAnimationDurat
 static NSTimeInterval const fadetime = 1.7;
 ```
 
-Properties should be camel-case with the leading word being lowercase. Use auto-synthesis for properties rather than manual @synthesize statements unless you have good reason.
+属性名称应使用camel-case（驼峰式）命名方法，且第一个单词的首字母应为小写。如果Xcode版本支持对变量的自动合成，则不必深究。否则与该属性对应的实例变量名称的第一个单词的首字母应为小写，且在前面加上下划线。
 
 **Preferred:**
 
@@ -220,19 +207,15 @@ Properties should be camel-case with the leading word being lowercase. Use auto-
 id varnm;
 ```
 
-### Underscores
+### 下划线
 
-When using properties, instance variables should always be accessed and mutated using `self.`. This means that all properties will be visually distinct, as they will all be prefaced with `self.`. 
+当使用属性变量时，应通过self.来获取和更改实例变量。这就意味着所有的属性将是独特的，因为它们的名称前会加上self.。本地变量名称中不应包含下划线。
 
-An exception to this: inside initializers, the backing instance variable (i.e. _variableName) should be used directly to avoid any potential side effects of the getters/setters.
+## 方法
 
-Local variables should not contain underscores.
+(+/-)符号和方法签名之间空一格 (遵循苹果的声明风格).  在参数之前包含一格关键词来描述参数的含义。
 
-## Methods
-
-In method signatures, there should be a space after the method type (-/+ symbol). There should be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument.
-
-The usage of the word "and" is reserved.  It should not be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
+尽量避免在方法签名中包含单词`and`。推荐如下用法：`initWithWidth:height:`
 
 **Preferred:**
 ```objc
@@ -252,15 +235,18 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 - (instancetype)initWith:(int)width and:(int)height;  // Never do this.
 ```
 
-## Variables
+## 变量
 
-Variables should be named as descriptively as possible. Single letter variable names should be avoided except in `for()` loops.
+变量的命名应尽可能具有自解释性。除了在for()循环语句中，应避免使用单个字母变量名称。
 
-Asterisks indicating pointers belong with the variable, e.g., `NSString *text` not `NSString* text` or `NSString * text`, except in the case of constants.
+除非是常量，星号应紧贴变量名称表示指向变量的指针，除了const常量的声明。比如：
+正确用法： `NSString *text` 
+不当用法： `NSString* text` 或 `NSString * text`
 
-[Private properties](#private-properties) should be used in place of instance variables whenever possible. Although using instance variables is a valid way of doing things, by agreeing to prefer properties our code will be more consistent. 
+[私有属性](#private-properties)   
+私有属性应在类实现文件的类扩展（匿名分类）中进行声明。应避免使用命名分类.
 
-Direct access to instance variables that 'back' properties should be avoided except in initializer methods (`init`, `initWithCoder:`, etc…), `dealloc` methods and within custom setters and getters. For more information on using Accessor Methods in Initializer Methods and dealloc, see [here](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6).
+应该要避免直接访问属性（通过getter/setter以及点操作）。除了在初始化的方法中(`init`, `initWithCoder:`, etc…), `dealloc` 方法 以及自定义的 setters 与 getters 方法. 更多关于getter/setter的hi使用请看 [这里](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6).
 
 **Preferred:**
 
@@ -281,9 +267,9 @@ Direct access to instance variables that 'back' properties should be avoided exc
 ```
 
 
-## Property Attributes
+## 属性特性
 
-Property attributes should be explicitly listed, and will help new programmers when reading the code.  The order of properties should be storage then atomicity, which is consistent with automatically generated code when connecting UI elements from Interface Builder.
+参照从IB中拉线出来生成的属性方式。内存管理修饰符在前，原子操作描述放在后边。因为内存管理相对会重要一些，方便阅读时首先能看到此修饰。
 
 **Preferred:**
 
@@ -301,11 +287,9 @@ Property attributes should be explicitly listed, and will help new programmers w
 
 
 
-## Dot-Notation Syntax
+## 点表示法
 
-Dot syntax is purely a convenient wrapper around accessor method calls. When you use dot syntax, the property is still accessed or changed using getter and setter methods.  Read more [here](https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html)
-
-Dot-notation should **always** be used for accessing and mutating properties, as it makes code more concise. Bracket notation is preferred in all other instances.
+应“仅”用于获取和改变属性。括号表示法用于所有其它实例。
 
 **Preferred:**
 ```objc
@@ -323,7 +307,7 @@ UIApplication.sharedApplication.delegate;
 
 ## Literals
 
-`NSString`, `NSDictionary`, `NSArray`, and `NSNumber` literals should be used whenever creating immutable instances of those objects. Pay special care that `nil` values not be passed into `NSArray` and `NSDictionary` literals, as this will cause a crash.
+在创建`NSString`,`NSDictionary`,`NSArray`和`NSNumber`等对象的immutable实例时，应使用字面量。需要注意的是，不应将nil传递给`NSArray`和`NSDictionary`字面量，否则会引起程序崩溃。
 
 **Preferred:**
 
@@ -343,29 +327,9 @@ NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
 NSNumber *buildingStreetNumber = [NSNumber numberWithInteger:10018];
 ```
 
-## Constants
+## 枚举类型
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static` constants and not `#define`s unless explicitly being used as a macro.
-
-**Preferred:**
-
-```objc
-static NSString * const RWTAboutViewControllerCompanyName = @"RayWenderlich.com";
-
-static CGFloat const RWTImageThumbnailHeight = 50.0;
-```
-
-**Not Preferred:**
-
-```objc
-#define CompanyName @"RayWenderlich.com"
-
-#define thumbnailHeight 2
-```
-
-## Enumerated Types
-
-When using `enum`s, it is recommended to use the new fixed underlying type specification because it has stronger type checking and code completion. The SDK now includes a macro to facilitate and encourage use of fixed underlying types: `NS_ENUM()`
+在使用enum的时候，推荐适用最新的fixed underlying type(WWDC 2012 session 405- Modern Objective-C)规范，因为它具备更强的类型检查和代码完成功能。
 
 **For Example:**
 
@@ -377,7 +341,7 @@ typedef NS_ENUM(NSInteger, RWTLeftMenuTopItemType) {
 };
 ```
 
-You can also make explicit value assignments (showing older k-style constant definition):
+或者可以指定枚举的值：
 
 ```objc
 typedef NS_ENUM(NSInteger, RWTGlobalConstants) {
@@ -388,7 +352,7 @@ typedef NS_ENUM(NSInteger, RWTGlobalConstants) {
 };
 ```
 
-Older k-style constant definitions should be **avoided** unless writing CoreFoundation C code (unlikely).
+不推荐使用以下方式声明常量：
 
 **Not Preferred:**
 
@@ -400,10 +364,9 @@ enum GlobalConstants {
 ```
 
 
-## Case Statements
+## Case语句
 
-Braces are not required for case statements, unless enforced by the complier.  
-When a case contains more than one line, braces should be added.
+除非编译器报错，或者包含多行的代码，否则不需要在case语句使用大括号。
 
 ```objc
 switch (condition) {
@@ -425,7 +388,7 @@ switch (condition) {
 
 ```
 
-There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the 'break' statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
+优势多个case可能会使用一段代码，那么就使用fall-through的方式，即去掉case语句的break
 
 ```objc
 switch (condition) {
@@ -441,7 +404,7 @@ switch (condition) {
 
 ```
 
-When using an enumerated type for a switch, 'default' is not needed.   For example:
+当使用枚举类型时，不需要添加default。比如：
 
 ```objc
 RWTLeftMenuTopItemType menuType = RWTLeftMenuTopItemMain;
@@ -459,28 +422,10 @@ switch (menuType) {
 }
 ```
 
+## 布尔变量
 
-## Private Properties
+因为nil将被解析为NO，因此没有必要在条件语句中进行比较。永远不要将任何东西和YES进行直接比较，因为YES被定义为1，而一个BOOL变量可以有8个字节。
 
-Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class. Named categories (such as `RWTPrivate` or `private`) should never be used unless extending another class.   The Anonymous category can be shared/exposed for testing using the <headerfile>+Private.h file naming convention.
-
-**For Example:**
-
-```objc
-@interface RWTDetailViewController ()
-
-@property (strong, nonatomic) GADBannerView *googleAdView;
-@property (strong, nonatomic) ADBannerView *iAdView;
-@property (strong, nonatomic) UIWebView *adXWebView;
-
-@end
-```
-
-## Booleans
-
-Objective-C uses `YES` and `NO`.  Therefore `true` and `false` should only be used for CoreFoundation, C or C++ code.  Since `nil` resolves to `NO` it is unnecessary to compare it in conditions. Never compare something directly to `YES`, because `YES` is defined to 1 and a `BOOL` can be up to 8 bits.
-
-This allows for more consistency across files and greater visual clarity.
 
 **Preferred:**
 
@@ -498,16 +443,17 @@ if (isAwesome == YES) {} // Never do this.
 if (isAwesome == true) {} // Never do this.
 ```
 
-If the name of a `BOOL` property is expressed as an adjective, the property can omit the “is” prefix but specifies the conventional name for the get accessor, for example:
+如果一个BOOL属性使用形容词来表达，setter忽略’is’前缀，getter添加"is"前缀
+
 
 ```objc
 @property (assign, getter=isEditable) BOOL editable;
 ```
-Text and example taken from the [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE).
+命名规则来自 [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE).
 
-## Conditionals
+## 条件语句
 
-Conditional bodies should always use braces even when a conditional body could be written without braces (e.g., it is one line only) to prevent errors. These errors include adding a second line and expecting it to be part of the if-statement. Another, [even more dangerous defect](http://programmers.stackexchange.com/a/16530) may happen where the line "inside" the if-statement is commented out, and the next line unwittingly becomes part of the if-statement. In addition, this style is more consistent with all other conditionals, and therefore more easily scannable.
+为避免错误，条件语句体必须使用大括号。
 
 **Preferred:**
 ```objc
@@ -528,11 +474,9 @@ or
 if (!error) return success;
 ```
 
-### Ternary Operator
+### 三元运算
 
-The Ternary operator, `?:` , should only be used when it increases clarity or code neatness. A single condition is usually all that should be evaluated. Evaluating multiple conditions is usually more understandable as an `if` statement, or refactored into instance variables. In general, the best use of the ternary operator is during assignment of a variable and deciding which value to use.
-
-Non-boolean variables should be compared against something, and parentheses are added for improved readability.  If the variable being compared is a boolean type, then no parentheses are needed.
+可以让代码显得更清晰易懂时方可使用三元运算。更多情况下应使用条件语句。使用类似if的条件语句对多种条件进行判断通常要更容易理解，或使用实例变量
 
 **Preferred:**
 ```objc
@@ -548,9 +492,9 @@ result = isHorizontal ? x : y;
 result = a > b ? x = c > d ? c : d : y;
 ```
 
-## Init Methods
+## 构造函数和内存释放
 
-Init methods should follow the convention provided by Apple's generated code template.  A return type of 'instancetype' should also be used instead of 'id'.
+构造返回值使用instancetype，代码格式使用apple提供的模板
 
 ```objc
 - (instancetype)init {
@@ -562,11 +506,13 @@ Init methods should follow the convention provided by Apple's generated code tem
 }
 ```
 
-See [Class Constructor Methods](#class-constructor-methods) for link to article on instancetype.
+更多关于instancetype请参见 [Class Constructor Methods](#class-constructor-methods) 
 
-## Class Constructor Methods
+dealloc方法应放在方法实现文件的顶部
 
-Where class constructor methods are used, these should always return type of 'instancetype' and never 'id'. This ensures the compiler correctly infers the result type. 
+## 类构造函数
+
+使用类构造函数时，使用instancetype作为返回值
 
 ```objc
 @interface Airplane
@@ -574,13 +520,11 @@ Where class constructor methods are used, these should always return type of 'in
 @end
 ```
 
-More information on instancetype can be found on [NSHipster.com](http://nshipster.com/instancetype/).
+更多关于instancetype请参见 [NSHipster.com](http://nshipster.com/instancetype/).
 
-## CGRect Functions
+## CGRect函数
 
-When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, always use the [`CGGeometry` functions](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) instead of direct struct member access. From Apple's `CGGeometry` reference:
-
-> All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
+当需要获取一个CGRect矩形的x,y,width,height属性时，应使用[`CGGeometry`函数](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) ，而非直接访问结构体成员。
 
 **Preferred:**
 
@@ -606,9 +550,9 @@ CGFloat height = frame.size.height;
 CGRect frame = (CGRect){ .origin = CGPointZero, .size = frame.size };
 ```
 
-## Golden Path
+## 黄金路径
 
-When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are OK.
+尽可能不要嵌套if else，需要返回时直接返回。
 
 **Preferred:**
 
@@ -632,9 +576,9 @@ When coding with conditionals, the left hand margin of the code should be the "g
 }
 ```
 
-## Error handling
+## 错误捕获
 
-When methods return an error parameter by reference, switch on the returned value, not the error variable.
+当可以根据函数返回值判断错误时，不要通过error变量来判断。
 
 **Preferred:**
 ```objc
@@ -653,12 +597,11 @@ if (error) {
 }
 ```
 
-Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
+一些apple的API会在成功时在error参数（如果不为NULL时）里写垃圾信息，所以使用error可能会导致判断错误和崩溃。
 
+## 单例
 
-## Singletons
-
-Singleton objects should use a thread-safe pattern for creating their shared instance.
+在创建单例对象的共享实例时，应使用线程安全模式。
 ```objc
 + (instancetype)sharedInstance {
   static id sharedInstance = nil;
@@ -674,45 +617,26 @@ Singleton objects should use a thread-safe pattern for creating their shared ins
 This will prevent [possible and sometimes prolific crashes](http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html).
 
 
-## Line Breaks
+## 换行
 
-Line breaks are an important topic since this style guide is focused for print and online readability.
+在代码过长时使用分行来保证代码的可读性。
 
-For example:
+例如:
 ```objc
 self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
 ```
-A long line of code like this should be carried on to the second line adhering to this style guide's Spacing section (two spaces).
+
 ```objc
 self.productsRequest = [[SKProductsRequest alloc] 
   initWithProductIdentifiers:productIdentifiers];
 ```
 
+## Xcode项目
 
-## Smiley Face
+为避免文件混乱，实际的物理文件路径应和Xcode项目内的路径保持一直。在Xcode中所创建的任何group都应有文件系统中相对应的文件夹。不应仅根据文件类型来进行分组，还需要考虑到其作用。
+在Xcode的target的Build Setting中，中尽量开启”Treat Warnings as Errors“，同时尽量开启其他的警告[additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings)。如果需要忽略一些特别的警告，请使用[Clang's pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
 
-Smiley faces are a very prominent style feature of the raywenderlich.com site!  It is very important to have the correct smile signifying the immense amount of happiness and excitement for the coding topic.  The end square bracket is used because it represents the largest smile able to be captured using ascii art.  A half-hearted smile is represented if an end parenthesis is used, and thus not preferred.
-
-**Preferred:**
-```objc
-:]
-```
-
-**Not Preferred:**
-```objc
-:)
-```  
-
-
-## Xcode project
-
-The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity.
-
-When possible, always turn on "Treat Warnings as Errors" in the target's Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang's pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
-
-# Other Objective-C Style Guides
-
-If ours doesn't fit your tastes, have a look at some other style guides:
+# 其他的Objective-C代码规范
 
 * [Robots & Pencils](https://github.com/RobotsAndPencils/objective-c-style-guide)
 * [New York Times](https://github.com/NYTimes/objective-c-style-guide)
